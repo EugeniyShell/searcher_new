@@ -12,8 +12,12 @@ def create_app():
         SQLALCHEMY_TRACK_MODIFICATIONS
 
     @app.route("/")
-    def index(message="Превед!"):
+    def index(message="Начинаем поиск?"):
         return render_template('index.tpl', message=message)
+
+    @app.route("/renew")
+    def renew():
+        return index(message="База обновлена!")
 
     @app.errorhandler(404)
     def page404(_):
