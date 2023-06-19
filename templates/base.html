@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="referrer" content="no-referrer">
+        
+        <title>Something Searcher</title>
+        
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css') }}">
+        
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    
+    <body>
+        <header class="bg-primary text-white">
+            <p class="container-md">
+                <a href="#" class="btn btn-success btn-lg">Освежить базу</a>
+                Помощник в поиске лекарств по аптечным агрегаторам
+            </p>
+        </header>
+        
+        <main>
+            <div class="container-md">
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">В начало поиска</a></li>
+                    </ol>
+                </nav>
+
+                {% block content %}
+                    {# подтягиваем контент из темплейта #}
+                {% endblock %}
+            </div>
+        </main>
+        
+        <footer class="bg-secondary text-white">
+            <p class="container-md">&copy; Shell Khan & Son, 2023.</p>
+        </footer>
+    </body>
+</html>
