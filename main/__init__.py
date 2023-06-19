@@ -17,7 +17,7 @@ def create_app():
 
     @app.route("/renew")
     def renew():
-        return index(message="База обновлена!")
+        return index("База обновлена!")
 
     @app.errorhandler(404)
     def page404(_):
