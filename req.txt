@@ -1,6 +1,6 @@
 Flask==2.3.2
 Flask-Migrate==4.0.4
-Flask-SQLAlchemy==3.0.3
+Flask-SQLAlchemy==3.0.4
 lxml==4.9.2
 pandas==2.0.2
 requests==2.31.0
