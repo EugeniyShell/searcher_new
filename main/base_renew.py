@@ -3,8 +3,10 @@ from zipfile import ZipFile
 
 import requests
 import wget
+import xlrd
 from lxml import html
 
+from main.db import Substantion, db
 from main.defs import GRLS_ADDRESS, USERAGENT, SOURCEPATH
 
 
@@ -44,4 +46,28 @@ def process_zips(file):
 
 
 def process_xls(file):
-    pass
+    try:
+        wb = xlrd.open_workbook(file)
+        for sh in wb.sheets():
+            process_cells(sh)
+    except Exception as err:
+        print(err)
+    os.remove(file)
+
+
+def process_cells(sheet):
+    if sheet.cell(4, 10).value == \
+            'Торговое наименование\nлекарственного препарата':
+        for n in range(6, sheet.nrows - 2):
+            analyze(sheet.cell(n, 10).value, sheet.cell(n, 11).value)
+    else:
+        print(f'{sheet.name} - Invalid Sheet Format')
+
+
+def analyze(_tn, _mnn):
+    if _mnn == '~':
+        _mnn = _tn
+    if not Substantion.query.filter_by(commonname=_mnn, drugname=_tn).first():
+        db.session.add(Substantion(commonname=_mnn, drugname=_tn,
+                                   commonname_normalized=_mnn.lower(),
+                                   drugname_normalized=_tn.lower()))
