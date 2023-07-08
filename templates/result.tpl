@@ -20,7 +20,7 @@
                     </span>
 
                     <span class="badge bg-primary rounded-pill">
-                        {{ item.price }}
+                        {{ item.price }} &#8381;
                     </span>
                 </a>
             {% endfor %}

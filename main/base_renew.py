@@ -6,8 +6,8 @@ import wget
 import xlrd
 from lxml import html
 
-from main.db import Substantion, db
-from main.defs import GRLS_ADDRESS, USERAGENT, SOURCEPATH
+from .db import Substantion, db
+from .defs import GRLS_ADDRESS, USERAGENT, SOURCEPATH
 
 
 def base_renew():

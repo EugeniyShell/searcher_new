@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request
 
-from crawlers import crawl_it
-from main.base_renew import base_renew
-from main.db import db, base_search
-from main.defs import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MOD, SOURCEPATH
+from .crawling import crawl_it
+from .base_renew import base_renew
+from .db import db, base_search
+from .defs import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MOD, SOURCEPATH
 
 
 def create_app():
@@ -30,7 +30,7 @@ def create_app():
         if not search:
             return index('Вы ничего не ввели, будьте внимательнее')
         search_list = base_search(search)
-        if not len(search_list):
+        if not search_list:
             return index(f'Не удалось найти "{search}", '
                          f'попробуйте другое ключевое слово')
         return render_template('variants.tpl', message=search,

@@ -1,2 +1,5 @@
-def crawl_it(search_list):
-    return []
+from .apteka import main as apteka
+
+__all__ = [
+    'apteka',
+]
