@@ -19,7 +19,7 @@ def crawl_it(search_list):
     #         item['price']) or not temp_dict.get(item['link']):
     #         temp_dict[item['link']] = item
     # result = list(temp_dict.values())
-    # return result.sort(key=lambda x: x['price'])
+    result.sort(key=lambda x: x['price_num'])
     return result
 
 
@@ -27,6 +27,7 @@ def use_crawler(search_item):
     result = []
     options = Options()
     options.add_argument('--headless')
+    options.add_argument('--ignore-certificate-errors')
     service = Service(executable_path=CHROMEDRIVER)
     driver = webdriver.Chrome(service=service, options=options)
     driver.implicitly_wait(5)
@@ -39,6 +40,7 @@ def res_clear(reslist):
     result = []
     for res in reslist:
         res['name'] = re.sub(r'\s+', ' ', res['name']).strip()
-        res['price'] = int(re.search(r'\d+', re.sub(r'(\d+) (\d+)', r'\1\2', res['price'])).group())
+        res['price'] = re.sub(r'(\d+) (\d+)', r'\1\2', res['price'])
+        res['price_num'] = float(res['price'])
         result.append(res)
     return result

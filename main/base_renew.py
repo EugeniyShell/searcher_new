@@ -14,8 +14,11 @@ def base_renew():
     get_grls()
     for file in SOURCEPATH.glob('*.zip'):
         process_zips(file)
-    for file in SOURCEPATH.glob('*.xls'):
+        os.remove(file)
+    for file in SOURCEPATH.glob('*-Действующий.xls'):
         process_xls(file)
+    for file in SOURCEPATH.glob('*.xls'):
+        os.remove(file)
 
 
 def get_grls():
@@ -42,7 +45,6 @@ def process_zips(file):
                 fullpath = SOURCEPATH / unicode_name
                 with open(fullpath, 'wb') as f:
                     f.write(content)
-    os.remove(file)
 
 
 def process_xls(file):
@@ -52,7 +54,6 @@ def process_xls(file):
             process_cells(sh)
     except Exception as err:
         print(err)
-    os.remove(file)
 
 
 def process_cells(sheet):
