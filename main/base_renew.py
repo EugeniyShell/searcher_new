@@ -71,4 +71,5 @@ def analyze(_tn, _mnn):
     if not Substantion.query.filter_by(commonname=_mnn, drugname=_tn).first():
         db.session.add(Substantion(commonname=_mnn, drugname=_tn,
                                    commonname_normalized=_mnn.lower(),
-                                   drugname_normalized=_tn.lower()))
+                                   drugname_normalized=_tn.replace(
+                                       '®', '').replace('  ', ' ').lower()))

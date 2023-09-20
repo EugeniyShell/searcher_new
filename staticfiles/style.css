@@ -11,6 +11,7 @@ header, footer {
 }
 main {
     flex: auto;
+    background: white;
 }
 header > p {
     font-size: 30px;
@@ -39,4 +40,11 @@ a.flex {
 .flex .badge {
     flex: none;
     height: 24px;
+}
+.inuse {
+    background: url('loader.gif') center no-repeat;
+}
+.inuse > * {
+    opacity: 0;
+    transition: opacity 1.5s .3s;
 }

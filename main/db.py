@@ -22,6 +22,6 @@ def base_search(src):
         temp = Substantion.query.filter(
             Substantion.commonname_normalized.contains(mnn.lower())
         ).all()
-        res_list += [item.drugname for item in temp]
+        res_list += [item.drugname_normalized for item in temp]
     res_list += mnn_list
     return list(set(res_list))

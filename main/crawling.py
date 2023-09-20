@@ -12,13 +12,10 @@ def crawl_it(search_list):
     result = []
     for search_item in search_list:
         result += use_crawler(search_item)
-    # уборка одинаковых ссылок. пока не используем.
-    # temp_dict = {}
-    # for item in result:
-    #     if (temp_dict.get(item['link']) and temp_dict[item['link']]['price'] >
-    #         item['price']) or not temp_dict.get(item['link']):
-    #         temp_dict[item['link']] = item
-    # result = list(temp_dict.values())
+    temp_dict = {}
+    for item in result:
+        temp_dict[item['link']] = item
+    result = list(temp_dict.values())
     result.sort(key=lambda x: x['price_num'])
     return result
 
@@ -33,6 +30,7 @@ def use_crawler(search_item):
     driver.implicitly_wait(5)
     for fname in crawlers.__all__:
         result += res_clear(getattr(crawlers, fname)(driver, search_item))
+    print(result)
     return result
 
 

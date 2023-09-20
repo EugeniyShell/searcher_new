@@ -36,27 +36,35 @@ def main(driver, search):
                 )
                 if len(p_add):
                     unit['price'] += p_add[0].text
-                res_list.append(unit)
+                vars = elem.find_elements(
+                    By.CSS_SELECTOR, '.CardVariants__list > a'
+                )
+                if len(vars):
+                    for v in vars:
+                        v.find_elements()
+                        _unit = unit
+                        _unit['name'] += ' ' + v.text
+                        _unit['link'] = v.get_attribute('href')
+                        res_list.append(_unit)
+                else:
+                    res_list.append(unit)
             except Exception as e:
                 print(e)
     else:
-        try:
-            elem = driver.find_element(By.CSS_SELECTOR,
-                                       '.ViewProductPage')
-            res_list.append({
-                'name': elem.find_element(
-                    By.CSS_SELECTOR, '.ViewProductPage__title h1'
-                ).text,
-                'price': elem.find_element(
-                    By.CSS_SELECTOR,
-                    '.ProductOffer__price .moneyprice__roubles'
-                ).text + elem.find_element(
-                    By.CSS_SELECTOR,
-                    '.ProductOffer__price .moneyprice__pennies'
-                ).text,
-                'link': f'https://apteka.ru/product/'
-                        f'{elem.get_attribute("id")}/',
-            })
-        except Exception as e:
-            print(e)
+        vars = driver.find_elements(
+            By.CSS_SELECTOR, '.ViewProductPage .ProductVariants .variantButton__link'
+        )
+        if len(vars):
+            for v in vars:
+                try:
+                    unit = {
+                        'name': v.get_attribute('aria-label'),
+                        'price': v.find_element(
+                            By.CSS_SELECTOR, 'meta [itemprop="price"]'
+                        ).get_attribute('content'),
+                        'link': v.get_attribute('href'),
+                    }
+                    res_list.append(unit)
+                except Exception as e:
+                    print(e)
     return res_list

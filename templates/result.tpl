@@ -10,7 +10,7 @@
     <div class="list-group list-group-flush">
         {% if result_list|length %}
             <h2 class="list-group-item">
-                Нам удалось найти:
+                Нам удалось найти ({{ result_list|length }}):
             </h2>
 
             {% for item in result_list %}
