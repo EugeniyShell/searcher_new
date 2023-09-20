@@ -36,14 +36,14 @@ def main(driver, search):
                 )
                 if len(p_add):
                     unit['price'] += p_add[0].text
-                vars = elem.find_elements(
+                vs = elem.find_elements(
                     By.CSS_SELECTOR, '.CardVariants__list > a'
                 )
-                if len(vars):
-                    for v in vars:
+                if len(vs):
+                    for v in vs:
                         v.find_elements()
                         _unit = unit
-                        _unit['name'] += ' ' + v.text
+                        _unit['name'] += f' {v.text}'
                         _unit['link'] = v.get_attribute('href')
                         res_list.append(_unit)
                 else:
@@ -51,11 +51,11 @@ def main(driver, search):
             except Exception as e:
                 print(e)
     else:
-        vars = driver.find_elements(
+        vs = driver.find_elements(
             By.CSS_SELECTOR, '.ViewProductPage .ProductVariants .variantButton__link'
         )
-        if len(vars):
-            for v in vars:
+        if len(vs):
+            for v in vs:
                 try:
                     unit = {
                         'name': v.get_attribute('aria-label'),

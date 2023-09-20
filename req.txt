@@ -4,4 +4,4 @@ lxml==4.9.2
 requests==2.31.0
 wget==3.2
 xlrd==2.0.1
-selenium==4.10.0
+selenium==4.12.0

@@ -3,8 +3,13 @@ import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+# from selenium.webdriver.edge.options import Options
+# from selenium.webdriver.edge.service import Service
+# from selenium.webdriver.firefox.options import Options
+# from selenium.webdriver.firefox.service import Service
 
 import crawlers
+# from .defs import CHROMEDRIVER, MSEDGEDRIVER, GECKODRIVER
 from .defs import CHROMEDRIVER
 
 
@@ -24,13 +29,18 @@ def use_crawler(search_item):
     result = []
     options = Options()
     options.add_argument('--headless')
+    options.add_argument('--disable-notifications')
+    options.add_argument('--disable-extensions')
+    options.add_argument('--disable-gpu')
     options.add_argument('--ignore-certificate-errors')
     service = Service(executable_path=CHROMEDRIVER)
+    # service = Service(executable_path=MSEDGEDRIVER)
+    # service = Service(executable_path=GECKODRIVER)
     driver = webdriver.Chrome(service=service, options=options)
     driver.implicitly_wait(5)
     for fname in crawlers.__all__:
         result += res_clear(getattr(crawlers, fname)(driver, search_item))
-    print(result)
+    driver.quit()
     return result
 
 
