@@ -52,7 +52,8 @@ def main(driver, search):
                 print(e)
     else:
         vs = driver.find_elements(
-            By.CSS_SELECTOR, '.ViewProductPage .ProductVariants .variantButton__link'
+            By.CSS_SELECTOR,
+            '.ViewProductPage .ProductVariants .variantButton__link'
         )
         if len(vs):
             for v in vs:
